@@ -285,6 +285,10 @@ pub fn interfaces() -> Vec<NetworkInterface> {
     unsafe {
         winpcap::GetAdaptersInfo(adapters.as_mut_ptr(), &mut adapters_size);
     }
+    
+    if adapters_size == 0 {
+        return vec![];
+    }
 
     // Create a complete list of NetworkInterfaces for the machine
     let mut cursor = adapters.as_mut_ptr();
